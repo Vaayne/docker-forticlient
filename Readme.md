@@ -27,6 +27,7 @@ http proxy config:
 - PROXY_PASS
 
 
+### Command to run
 If don't need auth for proxy, just run
 
 ```
@@ -52,6 +53,16 @@ docker run -it --rm \
   -e PROXY_PASS=passwd \
   vaayne/docker-forticlient-proxy
 ```
+
+
+### Connect the vpn 
+
+expoxt HTTP Proxy
+```
+export http_proxy=http://localhost:18388/
+export https_proxy=https://localhost:18388/
+```
+
 
 ## Thanks
 
