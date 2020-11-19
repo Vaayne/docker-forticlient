@@ -15,6 +15,7 @@ RUN apt-get update && \
   ipppd \
   iptables \
   wget \
+  curl \
   && apt-get clean -q && apt-get autoremove --purge \
   && rm -rf /var/lib/apt/lists/*
 
@@ -26,6 +27,12 @@ RUN dpkg -x forticlient-sslvpn_amd64.deb /usr/share/forticlient && rm forticlien
 
 # Run setup
 RUN /usr/share/forticlient/opt/forticlient-sslvpn/64bit/helper/setup.linux.sh 2
+
+# Install gost for socks proxy server
+RUN curl -L -o gost.gz $(curl -s https://api.github.com/repos/ginuerzh/gost/releases/latest | grep browser_download_url | grep linux-amd64 | cut -d '"' -f 4) && \
+  gunzip gost.gz && \
+  mv gost /usr/bin/gost && \
+  chmod +x /usr/bin/gost
 
 # Copy runfiles
 COPY forticlient /usr/bin/forticlient
